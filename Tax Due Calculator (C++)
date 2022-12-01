@@ -1,0 +1,165 @@
+#include <iostream>
+#include  <bits/stdc++.h>
+using namespace std;
+#include<string.h>
+
+
+//variable declaration
+    string name, civilStatus;
+    int dependents, tin, grossIncome, personalDeduction=50000,additionalDeduction=25000, percentage;
+    char ans;
+
+//variable declaration for functions
+    int additionalExemption(int a, int b),totalExemption (int a, int b, int c),taxableIncome(int a, int b, int c, int d);
+    int taxrate1(int a, int b, int c, int d), taxrate2(int a, int b, int c, int d), taxrate3(int a, int b, int c, int d), taxrate4(int a, int b, int c, int d), taxrate5(int a, int b, int c, int d), taxrate6(int a, int b, int c, int d);
+
+/*notes for functions!!
+    int a = additionalDeduction
+    int b = dependents
+    int c = personal deduction
+    int d = gross income
+*/
+
+int main()
+{
+
+do
+{
+    //main code
+    cout<<"----------------------------------------------------------\n";
+    cout << "Full name: ";
+    getline(cin, name);
+    cout<< "TIN: ";
+    cin>> tin;
+    cout<< "Gross Income (Annual Income): Php ";
+    cin>> grossIncome;
+    cout<< "Civil Status (Single/Married/Head of the Family): ";
+    cin.ignore();
+    getline(cin, civilStatus);
+        if (civilStatus == "Single" || civilStatus == "single" || civilStatus == "SINGLE")
+        {
+            cout<<"--------------------------------------------------------\n";
+            cout<<"\n*-*-*-*-*-*-*-*-*-|SUMMARY|-*-*-*-*-*-*-*-*-*\n";
+            cout<< "Name: "<<name<<endl;
+            cout<< "TIN: "<<tin<<endl;
+            cout<<"Gross Income: Php " <<grossIncome<<endl;
+            cout<<"Civil Status: "<<civilStatus<<endl;
+            cout<<"No. of dependents (Maximum of 4): 0"<<endl;
+        }
+        else
+        {
+            //validation code for the number of dependents!!
+            do
+            {
+                cout<< "Enter number of dependents: ";
+                cin>> dependents;
+                    if (dependents>4)
+                    {
+                        cout<<"\n\n- Only a maximum of 4 dependents. Please try again. -\n\n\n";
+                    }
+                    else if (dependents<0)
+                    {
+                        cout<<"\n\n- Invalid number of dependents. Please try again. -\n\n\n";
+                    }
+            }while(dependents>4 || dependents<0);
+            //end of validation code-
+
+                cout<<"--------------------------------------------------------\n";
+                cout<<"\n*-*-*-*-*-*-*-*-*-|SUMMARY|-*-*-*-*-*-*-*-*-*\n";
+                cout<< "Name: "<<name<<endl;
+                cout<< "TIN: "<<tin<<endl;
+                cout<<"Gross Income: Php " <<grossIncome<<endl;
+                cout<<"Civil Status: "<<civilStatus<<endl;
+                cout<<"No. of dependents (Maximum of 4): " <<dependents<<endl;
+
+
+        }
+
+            cout<<"Personal Deduction: Php "<<personalDeduction<<endl;
+            cout<<"Additional Exemption: "<<additionalExemption(additionalDeduction,dependents)<<endl;
+            cout<<"Total Exemption: "<<totalExemption(additionalDeduction,dependents,personalDeduction)<<endl;
+            cout<<"Taxable Income: "<<taxableIncome(additionalDeduction,dependents,personalDeduction, grossIncome)<<endl;
+
+            //computation for the tax due below!!!!
+                if (taxableIncome(additionalDeduction,dependents,personalDeduction, grossIncome)<250000)
+                {
+                    cout<<"Tax due: Php"<<taxrate1(additionalDeduction,dependents,personalDeduction, grossIncome)<<endl;
+                }
+                else if(taxableIncome(additionalDeduction,dependents,personalDeduction, grossIncome)>=250000 && (taxableIncome(additionalDeduction,dependents,personalDeduction, grossIncome)<=400000 ))
+                {
+                    cout<<"Tax due: Php"<<taxrate2(additionalDeduction,dependents,personalDeduction, grossIncome)<<endl;
+                }
+                else if(taxableIncome(additionalDeduction,dependents,personalDeduction, grossIncome)>=400000 && (taxableIncome(additionalDeduction,dependents,personalDeduction, grossIncome)<800000 ))
+                {
+                    cout<<"Tax due: Php"<<taxrate3(additionalDeduction,dependents,personalDeduction, grossIncome)<<endl;
+                }
+                else if(taxableIncome(additionalDeduction,dependents,personalDeduction, grossIncome)>=800000 && (taxableIncome(additionalDeduction,dependents,personalDeduction, grossIncome)<2000000 ))
+                {
+                    cout<<"Tax due: Php"<<taxrate4(additionalDeduction,dependents,personalDeduction, grossIncome)<<endl;
+                }
+                else if(taxableIncome(additionalDeduction,dependents,personalDeduction, grossIncome)>=2000000 && (taxableIncome(additionalDeduction,dependents,personalDeduction, grossIncome)<5000000 ))
+                {
+                    cout<<"Tax due: Php"<<taxrate5(additionalDeduction,dependents,personalDeduction, grossIncome)<<endl;
+                }
+                else if(taxableIncome(additionalDeduction,dependents,personalDeduction, grossIncome)==5000000)
+                {
+                    cout<<"Tax due: Php"<<taxrate6(additionalDeduction,dependents,personalDeduction, grossIncome)<<endl;
+                }
+            cout<<"\n*-*-*-*-*-*-*-*-*-*-*-*-*-*--*-*-*-*-*-*-*-*-*\n";
+
+            cout<<"\nWould you like to try again?[Y/N]: ";
+            cin>>ans;
+            if(ans =='Y' || ans== 'y')
+            {
+                getline(cin,name);
+                dependents=0;
+                tin=0;
+                grossIncome=0;
+            }
+}while(ans =='Y' || ans== 'y');
+}
+
+int additionalExemption(int a, int b)
+{
+    return a*b;
+}
+
+int totalExemption(int a, int b, int c)
+{
+    return a*b+c;
+}
+
+int taxableIncome(int a, int b, int c, int d)
+{
+    return d-(a*b+c);
+}
+
+int taxrate1(int a, int b, int c, int d)
+{
+    return (d-(a*b+c))*0;
+}
+
+int taxrate2(int a, int b, int c, int d)
+{
+    return ((d-(a*b+c))-250000)*0.15;
+}
+
+int taxrate3(int a, int b, int c, int d)
+{
+    return 22500+(((d-(a*b+c))-400000)*0.20);
+}
+
+int taxrate4(int a, int b, int c, int d)
+{
+    return 102500+(((d-(a*b+c))-800000)*0.25);
+}
+
+int taxrate5(int a, int b, int c, int d)
+{
+    return 402500+(((d-(a*b+c))-2000000)*0.30);
+}
+
+int taxrate6(int a, int b, int c, int d)
+{
+    return 1302500+(((d-(a*b+c))-5000000)*0.35);
+}
