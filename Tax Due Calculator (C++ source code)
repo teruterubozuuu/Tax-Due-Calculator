@@ -44,14 +44,14 @@ do
             cout<< "TIN: "<<tin<<endl;
             cout<<"Gross Income: Php " <<grossIncome<<endl;
             cout<<"Civil Status: "<<civilStatus<<endl;
-            cout<<"No. of dependents (Maximum of 4): 0"<<endl;
+            cout<<"No. of dependents: 0"<<endl;
         }
         else
         {
             //validation code for the number of dependents!!
             do
             {
-                cout<< "Enter number of dependents: ";
+                cout<< "Enter number of dependents (Maximum of 4): ";
                 cin>> dependents;
                     if (dependents>4)
                     {
@@ -70,7 +70,7 @@ do
                 cout<< "TIN: "<<tin<<endl;
                 cout<<"Gross Income: Php " <<grossIncome<<endl;
                 cout<<"Civil Status: "<<civilStatus<<endl;
-                cout<<"No. of dependents (Maximum of 4): " <<dependents<<endl;
+                cout<<"No. of dependents: " <<dependents<<endl;
 
 
         }
